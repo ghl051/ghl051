@@ -1,0 +1,203 @@
+**Bài Tập 1**
+
+while True:
+  try:
+    GPA = float(input("Nhập số điểm GPA (số thập phân >= 0): "))
+    if GPA < 0:
+      print("Vui lòng nhập lại.")
+    else:
+      break
+  except ValueError:
+    print("Vui lòng nhập lại.")
+
+def evaluate_GPA(GPA):
+     if GPA < 2.0:
+        return "Điểm F"
+     elif GPA < 2.5:
+        return "Điểm C"
+     elif GPA < 3.0:
+        return "Điểm B"
+     elif GPA < 3.2:
+        return "Điểm B+"
+     elif GPA < 3.7:
+        return "Điểm A"
+     else:
+        return "Điểm A+"
+
+ket_qua_danh_gia_ = evaluate_GPA(GPA)
+print(f"Kết quả đánh giá học lực dựa trên GPA {GPA} là: {ket_qua_danh_gia_}")
+
+
+
+**Bài Tập 2**
+
+# Khởi tạo danh sách OD với các dictionary đại diện cho các đơn hàng
+OD = {
+    'OD001': ['Cá hồi', 'Sữa', 'Redbull'],
+    'OD002': ['Cá hồi', 'Sữa', 'Cá ngừ'],
+    'OD003': ['Bia', 'Sữa', 'Cá hồi'],
+    'OD004': ['Bia', 'Xúc xích'],
+    'OD005': ['Redbull'],
+}
+
+# Tìm ra đơn hàng mua ít sản phẩm nhất
+min_items_order = min(OD, key=lambda order: len(OD[order]))
+min_items_count = len(OD[min_items_order])
+
+# Tìm ra đơn hàng mua nhiều sản phẩm nhất
+max_items_order = max(OD, key=lambda order: len(OD[order]))
+max_items_count = len(OD[max_items_order])
+
+# Tạo một danh sách chứa tất cả các sản phẩm
+all_items = [item for items in OD.values() for item in items]
+
+# Tìm item được mua nhiều nhất trong danh sách OD
+most_purchased_item = max(set(all_items), key=all_items.count)
+
+print(f"Đơn hàng mua ít sản phẩm nhất: {min_items_order} ({min_items_count} sản phẩm)")
+print(f"Đơn hàng mua nhiều sản phẩm nhất: {max_items_order} ({max_items_count} sản phẩm)")
+print(f"Item được mua nhiều nhất trong danh sách OD: {most_purchased_item}")
+
+
+**Bài Tập 3**
+
+class Person:
+    def __init__(self, name, address, dob):
+        self.Name = name
+        self.Address = address
+        self.DoB = dob
+
+    def display_info(self):
+        print(f"Name: {self.Name}")
+        print(f"Address: {self.Address}")
+        print(f"Date of Birth: {self.DoB}")
+
+# Khởi tạo một đối tượng Person
+person1 = Person("Long Giang", "Uutiskatu 3 C, Helsinki, Finaland", "2000-10-05")
+
+# Hiển thị thông tin của đối tượng
+person1.display_info()
+
+
+**Bài tập 4**
+
+class Employee:
+    def __init__(self, em_id, name, address, dob, emp_type, salary):
+        self.EmID = em_id
+        self.Name = name
+        self.Address = address
+        self.DoB = dob
+        self.Type = emp_type
+        self.Salary = salary
+
+    def display_info(self):
+        print(f"Employee ID: {self.EmID}")
+        print(f"Name: {self.Name}")
+        print(f"Address: {self.Address}")
+        print(f"Date of Birth: {self.DoB}")
+        print(f"Type: {self.Type}")
+        print(f"Salary: {self.Salary} VND")
+        print()
+
+# Khởi tạo danh sách Employee_Info
+Employee_Info = []
+
+# Khởi tạo 5 đối tượng nhân viên và thêm vào danh sách Employee_Info
+employee1 = Employee("I001", "Tú Anh", "Vĩnh Phúc", "22/09/2000", "Văn phòng", 500000)
+Employee_Info.append(employee1)
+
+employee2 = Employee("I002", "Cường", "Hưng Yên", "23/06/2000", "Sản xuất", 300000)
+Employee_Info.append(employee2)
+
+employee3 = Employee("I003", "Huyền", "Hà Nội", "24/08/1999", "Văn phòng", 570000)
+Employee_Info.append(employee3)
+
+employee4 = Employee("I004", "Hoa", "Hà Tĩnh", "27/12/1998", "Văn phòng", 700000)
+Employee_Info.append(employee4)
+
+employee5 = Employee("I005", "Phước", "Nghệ An", "02/03/1995", "Sản xuất", 800000)
+Employee_Info.append(employee5)
+
+# Hiển thị thông tin của các nhân viên trong danh sách Employee_Info
+for employee in Employee_Info:
+    employee.display_info()
+
+
+**Bài Tập 5**
+
+class Employee:
+    def __init__(self, em_id, name, address, dob, emp_type, salary):
+        self.EmID = em_id
+        self.Name = name
+        self.Address = address
+        self.DoB = dob
+        self.Type = emp_type
+        self.Salary = salary
+
+    def display_info(self):
+        print(f"Employee ID: {self.EmID}")
+        print(f"Name: {self.Name}")
+        print(f"Address: {self.Address}")
+        print(f"Date of Birth: {self.DoB}")
+        print(f"Type: {self.Type}")
+        print(f"Salary: {self.Salary} VND")
+        print()
+
+def calculate_salary(employee, days_worked, products_produced=None):
+    if employee.Type == "Văn phòng":
+        salary = employee.Salary * days_worked + 2000000
+    elif employee.Type == "Sản xuất" and products_produced is not None:
+        salary = employee.Salary * days_worked + products_produced * 5000
+    else:
+        salary = 0
+    return salary
+
+# Khởi tạo danh sách Employee_Info
+Employee_Info = []
+
+# Khởi tạo 5 đối tượng nhân viên và thêm vào danh sách Employee_Info
+employee1 = Employee("I001", "Tú Anh", "Vĩnh Phúc", "22/09/2000", "Văn phòng", 500000)
+Employee_Info.append(employee1)
+
+employee2 = Employee("I002", "Cường", "Hưng Yên", "23/06/2000", "Sản xuất", 300000)
+Employee_Info.append(employee2)
+
+employee3 = Employee("I003", "Huyền", "Hà Nội", "24/08/1999", "Văn phòng", 570000)
+Employee_Info.append(employee3)
+
+employee4 = Employee("I004", "Hoa", "Hà Tĩnh", "27/12/1998", "Văn phòng", 700000)
+Employee_Info.append(employee4)
+
+employee5 = Employee("I005", "Phước", "Nghệ An", "02/03/1995", "Sản xuất", 800000)
+Employee_Info.append(employee5)
+
+# Tính và hiển thị lương cho từng nhân viên trong danh sách Employee_Info
+for employee in Employee_Info:
+    if employee.Type == "Văn phòng":
+        days_worked = int(input(f"Nhập số ngày làm việc cho nhân viên {employee.Name}: "))
+        salary = calculate_salary(employee, days_worked)
+    elif employee.Type == "Sản xuất":
+        days_worked = int(input(f"Nhập số ngày làm việc cho nhân viên {employee.Name}: "))
+        products_produced = int(input(f"Nhập số sản phẩm đã làm được cho nhân viên {employee.Name}: "))
+        salary = calculate_salary(employee, days_worked, products_produced)
+
+    print(f"{employee.EmID} lương tháng này là {salary} VND")
+
+
+**Bài tập 6**
+
+def Searching_Employee(employee_id):
+    found = False
+    for employee in Employee_Info:
+        if employee.EmID == employee_id:
+            found = True
+            print(f"Thông tin của nhân viên có mã {employee_id}:")
+            employee.display_info()
+            break
+
+    if not found:
+        print(f"Mã nhân viên {employee_id} không tồn tại trong danh sách Employee_Info.")
+
+# Gọi hàm Searching_Employee để tìm kiếm thông tin của một nhân viên theo mã nhân viên
+employee_id_to_search = input("Nhập mã nhân viên cần tìm: ")
+Searching_Employee(employee_id_to_search)
