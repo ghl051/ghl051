@@ -1,1 +1,35 @@
+### Connect to the database
+import csv, sqlite3
+con = sqlite3.connect("RealWorldData.db")
+cur = con.cursor()
+
+!pip install -q pandas==1.1.5
+
+%load_ext sql
+%sql sqlite:///RealWorldData.db
+
+# Store the dataset in a Table
+
+import pandas
+df = pandas.read_csv("https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCensusData.csv")
+df.to_sql("CENSUS_DATA", con, if_exists='replace', index=False,method="multi")
+
+df = pandas.read_csv("https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCrimeData.csv")
+df.to_sql("CHICAGO_CRIME_DATA", con, if_exists='replace', index=False, method="multi")
+
+df = pandas.read_csv("https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoPublicSchools.csv")
+df.to_sql("CHICAGO_PUBLIC_SCHOOLS_DATA", con, if_exists='replace', index=False, method="multi")
+
+### Query the databse system catalog to retrieve table metadata
+
+# type in your query to retrieve list of all tables in the database
+%sql SELECT name FROM sqlite_master WHERE type='table'
+
+# Query the database system catalog to retrieve column metadata
+
+# type in your query to retrieve the number of columns in the SCHOOLS table
+%sql SELECT count(name) FROM PRAGMA_TABLE_INFO('CHICAGO_PUBLIC_SCHOOLS_DATA');
+# type in your query to retrieve all column names in the SCHOOLS table along with their datatypes and length
+%sql SELECT name,type,length(type) FROM PRAGMA_TABLE_INFO('CHICAGO_PUBLIC_SCHOOLS_DATA');
+
 
